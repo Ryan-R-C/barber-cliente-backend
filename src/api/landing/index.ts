@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/landing`,
+    require('./landingCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/landing/:id`,
+    require('./landingUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/landing/import`,
+    require('./landingImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/landing`,
+    require('./landingDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/landing/autocomplete`,
+    require('./landingAutocomplete').default,
+  );
+  app.get(
+    `/landing`,
+    require('./landingList').default,
+  );
+  app.get(
+    `/landing/:id`,
+    require('./landingFind').default,
+  );
+};
