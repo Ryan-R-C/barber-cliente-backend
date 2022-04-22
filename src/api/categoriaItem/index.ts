@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/categoriaItem`,
+    require('./categoriaItemCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/categoriaItem/:id`,
+    require('./categoriaItemUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/categoriaItem/import`,
+    require('./categoriaItemImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/categoriaItem`,
+    require('./categoriaItemDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/categoriaItem/autocomplete`,
+    require('./categoriaItemAutocomplete').default,
+  );
+  app.get(
+    `/categoriaItem`,
+    require('./categoriaItemList').default,
+  );
+  app.get(
+    `/categoriaItem/:id`,
+    require('./categoriaItemFind').default,
+  );
+};
