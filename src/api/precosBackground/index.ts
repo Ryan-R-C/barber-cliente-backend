@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/precosBackground`,
+    require('./precosBackgroundCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/precosBackground/:id`,
+    require('./precosBackgroundUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/precosBackground/import`,
+    require('./precosBackgroundImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/precosBackground`,
+    require('./precosBackgroundDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/precosBackground/autocomplete`,
+    require('./precosBackgroundAutocomplete').default,
+  );
+  app.get(
+    `/precosBackground`,
+    require('./precosBackgroundList').default,
+  );
+  app.get(
+    `/precosBackground/:id`,
+    require('./precosBackgroundFind').default,
+  );
+};
