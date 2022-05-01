@@ -23,19 +23,16 @@ class CategoriaItemRepository {
       options,
     );
 
-    const record = await options.database.cerimonia.create(
+    const record = await options.database.categoriaItem.create(
       {
         ...lodash.pick(data, [
-          'nomeHomenageado',
-          'cpf',
-          'dataCerimonia',
-          'responsavel',
-          'telefoneResponsavel',
-          'emailResponsavel',          
+          'titulo',
+          'desc',
+          'preco',   
           'importHash',
-          'isEncerrada',
         ]),
-        idFunerariaId: data.idFuneraria || null,
+        categoriaId:  data.categoriaId || null,
+        categoriumId: data.categoriaId || null,
         tenantId:    tenant.id      ,
         createdById: currentUser.id ,
         updatedById: currentUser.id ,
@@ -73,7 +70,7 @@ class CategoriaItemRepository {
       options,
     );
 
-    let record = await options.database.cerimonia.findOne(      
+    let record = await options.database.categoriaItem.findOne(      
       {
         where: {
           id,
@@ -90,17 +87,14 @@ class CategoriaItemRepository {
     record = await record.update(
       {
         ...lodash.pick(data, [
-          'nomeHomenageado',
-          'cpf',
-          'dataCerimonia',
-          'responsavel',
-          'telefoneResponsavel',
-          'emailResponsavel',          
+           'titulo',
+          'desc',
+          'preco',   
           'importHash',
-          'isEncerrada',
           
         ]),
-        idFunerariaId: data.idFuneraria || null,
+        // categoriaId:  data.categoriaId || null,
+        // categoriumId: data.categoriaId || null,
         updatedById: currentUser.id,
       },
       {
@@ -131,7 +125,7 @@ class CategoriaItemRepository {
       options,
     );
 
-    let record = await options.database.cerimonia.findOne(
+    let record = await options.database.categoriaItem.findOne(
       {
         where: {
           id,
@@ -163,21 +157,14 @@ class CategoriaItemRepository {
     );
 
     const include = [
-      {
-        model: options.database.funeraria,
-        as: 'idFuneraria',
-      },
-      {
-        model: options.database.cerimoniaData,
-        as: 'cerimoniaData',
-      },
+
     ];
 
     const currentTenant = SequelizeRepository.getCurrentTenant(
       options,
     );
 
-    const record = await options.database.cerimonia.findOne(
+    const record = await options.database.categoriaItem.findOne(
       {
         where: {
           id,
@@ -224,7 +211,7 @@ class CategoriaItemRepository {
       tenantId: currentTenant.id,
     };
 
-    const records = await options.database.cerimonia.findAll(
+    const records = await options.database.categoriaItem.findAll(
       {
         attributes: ['id'],
         where,
@@ -243,7 +230,7 @@ class CategoriaItemRepository {
       options,
     );
 
-    return options.database.cerimonia.count(
+    return options.database.categoriaItem.count(
       {
         where: {
           ...filter,
@@ -264,10 +251,6 @@ class CategoriaItemRepository {
 
     let whereAnd: Array<any> = [];
     let include = [
-      {
-        model: options.database.funeraria,
-        as: 'idFuneraria',
-      },      
     ];
 
     whereAnd.push({
@@ -284,7 +267,7 @@ class CategoriaItemRepository {
       if (filter.nomeHomenageado) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'categoriaItem',
             'nomeHomenageado',
             filter.nomeHomenageado,
           ),
@@ -294,7 +277,7 @@ class CategoriaItemRepository {
       if (filter.cpf) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'categoriaItem',
             'cpf',
             filter.cpf,
           ),
@@ -323,7 +306,7 @@ class CategoriaItemRepository {
       if (filter.responsavel) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'categoriaItem',
             'responsavel',
             filter.responsavel,
           ),
@@ -333,7 +316,7 @@ class CategoriaItemRepository {
       if (filter.telefoneResponsavel) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'categoriaItem',
             'telefoneResponsavel',
             filter.telefoneResponsavel,
           ),
@@ -343,7 +326,7 @@ class CategoriaItemRepository {
       if (filter.emailResponsavel) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'categoriaItem',
             'emailResponsavel',
             filter.emailResponsavel,
           ),
@@ -358,15 +341,15 @@ class CategoriaItemRepository {
         });
       }
 
-      if (filter.cerimoniaId) {
+      if (filter.categoriaItemId) {
         console.log("nbkldfnbdfkbn")
         console.log("nbkldfnbdfkbn")
         console.log("nbkldfnbdfkbn")
         console.log("nbkldfnbdfkbn")
         console.log("nbkldfnbdfkbn")
         whereAnd.push({
-          ['cerimoniaId']: SequelizeFilterUtils.uuid(
-            filter.cerimoniaId,
+          ['categoriaItemId']: SequelizeFilterUtils.uuid(
+            filter.categoriaItemId,
           ),
         });
       }
@@ -405,7 +388,7 @@ class CategoriaItemRepository {
     let {
       rows,
       count,
-    } = await options.database.cerimonia.findAndCountAll({
+    } = await options.database.categoriaItem.findAndCountAll({
       where,
       include,
       limit: limit ? Number(limit) : undefined,
@@ -441,7 +424,7 @@ class CategoriaItemRepository {
           { ['id']: SequelizeFilterUtils.uuid(query) },
           {
             [Op.and]: SequelizeFilterUtils.ilikeIncludes(
-              'cerimonia',
+              'categoriaItem',
               'nomeHomenageado',
               query,
             ),
@@ -452,7 +435,7 @@ class CategoriaItemRepository {
 
     const where = { [Op.and]: whereAnd };
 
-    const records = await options.database.cerimonia.findAll(
+    const records = await options.database.categoriaItem.findAll(
       {
         attributes: ['id', 'nomeHomenageado'],
         where,
@@ -484,7 +467,7 @@ class CategoriaItemRepository {
 
     await AuditLogRepository.log(
       {
-        entityName: 'cerimonia',
+        entityName: 'categoriaItem',
         entityId: record.id,
         action,
         values,

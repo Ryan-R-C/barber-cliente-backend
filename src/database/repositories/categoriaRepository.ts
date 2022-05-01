@@ -23,19 +23,12 @@ class CategoriaRepository {
       options,
     );
 
-    const record = await options.database.cerimonia.create(
+    const record = await options.database.categoria.create(
       {
         ...lodash.pick(data, [
-          'nomeHomenageado',
-          'cpf',
-          'dataCerimonia',
-          'responsavel',
-          'telefoneResponsavel',
-          'emailResponsavel',          
+          'titulo',         
           'importHash',
-          'isEncerrada',
         ]),
-        idFunerariaId: data.idFuneraria || null,
         tenantId:    tenant.id      ,
         createdById: currentUser.id ,
         updatedById: currentUser.id ,
@@ -73,7 +66,7 @@ class CategoriaRepository {
       options,
     );
 
-    let record = await options.database.cerimonia.findOne(      
+    let record = await options.database.categoria.findOne(      
       {
         where: {
           id,
@@ -90,17 +83,9 @@ class CategoriaRepository {
     record = await record.update(
       {
         ...lodash.pick(data, [
-          'nomeHomenageado',
-          'cpf',
-          'dataCerimonia',
-          'responsavel',
-          'telefoneResponsavel',
-          'emailResponsavel',          
+          'titulo',         
           'importHash',
-          'isEncerrada',
-          
         ]),
-        idFunerariaId: data.idFuneraria || null,
         updatedById: currentUser.id,
       },
       {
@@ -131,7 +116,7 @@ class CategoriaRepository {
       options,
     );
 
-    let record = await options.database.cerimonia.findOne(
+    let record = await options.database.categoria.findOne(
       {
         where: {
           id,
@@ -164,12 +149,8 @@ class CategoriaRepository {
 
     const include = [
       {
-        model: options.database.funeraria,
-        as: 'idFuneraria',
-      },
-      {
-        model: options.database.cerimoniaData,
-        as: 'cerimoniaData',
+        model: options.database.categoriaItem,
+        as: 'categoriaItem',
       },
     ];
 
@@ -177,7 +158,7 @@ class CategoriaRepository {
       options,
     );
 
-    const record = await options.database.cerimonia.findOne(
+    const record = await options.database.categoria.findOne(
       {
         where: {
           id,
@@ -224,7 +205,7 @@ class CategoriaRepository {
       tenantId: currentTenant.id,
     };
 
-    const records = await options.database.cerimonia.findAll(
+    const records = await options.database.categoria.findAll(
       {
         attributes: ['id'],
         where,
@@ -243,7 +224,7 @@ class CategoriaRepository {
       options,
     );
 
-    return options.database.cerimonia.count(
+    return options.database.categoria.count(
       {
         where: {
           ...filter,
@@ -265,14 +246,14 @@ class CategoriaRepository {
     let whereAnd: Array<any> = [];
     let include = [
       {
-        model: options.database.funeraria,
-        as: 'idFuneraria',
+        model: options.database.categoriaItem,
+        as: 'categoriaItem',
       },      
     ];
 
-    whereAnd.push({
-      tenantId: tenant.id,
-    });
+    // whereAnd.push({
+    //   tenantId: tenant.id,
+    // });
 
     if (filter) {
       if (filter.id) {
@@ -284,7 +265,7 @@ class CategoriaRepository {
       if (filter.nomeHomenageado) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'categoria',
             'nomeHomenageado',
             filter.nomeHomenageado,
           ),
@@ -294,18 +275,18 @@ class CategoriaRepository {
       if (filter.cpf) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'categoria',
             'cpf',
             filter.cpf,
           ),
         );
       }
-      if (filter.dataCerimoniaRange) {
-        const [start, end] = filter.dataCerimoniaRange;
+      if (filter.datacategoriaRange) {
+        const [start, end] = filter.datacategoriaRange;
 
         if (start !== undefined && start !== null && start !== '') {
           whereAnd.push({
-            dataCerimonia: {
+            datacategoria: {
               [Op.gte]: start,
             },
           });
@@ -313,7 +294,7 @@ class CategoriaRepository {
 
         if (end !== undefined && end !== null && end !== '') {
           whereAnd.push({
-            dataCerimonia: {
+            datacategoria: {
               [Op.lte]: end,
             },
           });
@@ -323,7 +304,7 @@ class CategoriaRepository {
       if (filter.responsavel) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'categoria',
             'responsavel',
             filter.responsavel,
           ),
@@ -333,7 +314,7 @@ class CategoriaRepository {
       if (filter.telefoneResponsavel) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'categoria',
             'telefoneResponsavel',
             filter.telefoneResponsavel,
           ),
@@ -343,7 +324,7 @@ class CategoriaRepository {
       if (filter.emailResponsavel) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'categoria',
             'emailResponsavel',
             filter.emailResponsavel,
           ),
@@ -358,15 +339,10 @@ class CategoriaRepository {
         });
       }
 
-      if (filter.cerimoniaId) {
-        console.log("nbkldfnbdfkbn")
-        console.log("nbkldfnbdfkbn")
-        console.log("nbkldfnbdfkbn")
-        console.log("nbkldfnbdfkbn")
-        console.log("nbkldfnbdfkbn")
+      if (filter.categoriaId) {
         whereAnd.push({
-          ['cerimoniaId']: SequelizeFilterUtils.uuid(
-            filter.cerimoniaId,
+          ['categoriaId']: SequelizeFilterUtils.uuid(
+            filter.categoriaId,
           ),
         });
       }
@@ -405,7 +381,7 @@ class CategoriaRepository {
     let {
       rows,
       count,
-    } = await options.database.cerimonia.findAndCountAll({
+    } = await options.database.categoria.findAndCountAll({
       where,
       include,
       limit: limit ? Number(limit) : undefined,
@@ -441,7 +417,7 @@ class CategoriaRepository {
           { ['id']: SequelizeFilterUtils.uuid(query) },
           {
             [Op.and]: SequelizeFilterUtils.ilikeIncludes(
-              'cerimonia',
+              'categoria',
               'nomeHomenageado',
               query,
             ),
@@ -452,7 +428,7 @@ class CategoriaRepository {
 
     const where = { [Op.and]: whereAnd };
 
-    const records = await options.database.cerimonia.findAll(
+    const records = await options.database.categoria.findAll(
       {
         attributes: ['id', 'nomeHomenageado'],
         where,
@@ -484,7 +460,7 @@ class CategoriaRepository {
 
     await AuditLogRepository.log(
       {
-        entityName: 'cerimonia',
+        entityName: 'categoria',
         entityId: record.id,
         action,
         values,

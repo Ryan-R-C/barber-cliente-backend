@@ -23,12 +23,13 @@ class CategoriaRepository {
       options,
     );
 
-    const record = await options.database.cerimonia.create(
+    const record = await options.database.socialMedia.create(
       {
         ...lodash.pick(data, [
-          'url',
-          'icone',
-          'importHash',
+          'facebook',
+          'instagram',
+          'whatsapp',
+          'importHash', 
         ]),
         tenantId:    tenant.id      ,
         createdById: currentUser.id ,
@@ -67,7 +68,7 @@ class CategoriaRepository {
       options,
     );
 
-    let record = await options.database.cerimonia.findOne(      
+    let record = await options.database.socialMedia.findOne(      
       {
         where: {
           id,
@@ -84,9 +85,10 @@ class CategoriaRepository {
     record = await record.update(
       {
         ...lodash.pick(data, [
-          'url',
-          'icone',
-          'importHash',
+          'facebook',
+          'instagram',
+          'whatsapp',
+          'importHash', 
         ]),
         createdById: currentUser.id ,
         updatedById: currentUser.id ,
@@ -119,7 +121,7 @@ class CategoriaRepository {
       options,
     );
 
-    let record = await options.database.cerimonia.findOne(
+    let record = await options.database.socialMedia.findOne(
       {
         where: {
           id,
@@ -157,7 +159,7 @@ class CategoriaRepository {
       options,
     );
 
-    const record = await options.database.cerimonia.findOne(
+    const record = await options.database.socialMedia.findOne(
       {
         where: {
           id,
@@ -204,7 +206,7 @@ class CategoriaRepository {
       tenantId: currentTenant.id,
     };
 
-    const records = await options.database.cerimonia.findAll(
+    const records = await options.database.socialMedia.findAll(
       {
         attributes: ['id'],
         where,
@@ -223,7 +225,7 @@ class CategoriaRepository {
       options,
     );
 
-    return options.database.cerimonia.count(
+    return options.database.socialMedia.count(
       {
         where: {
           ...filter,
@@ -246,10 +248,8 @@ class CategoriaRepository {
     let include = [  
     ];
 
-    whereAnd.push({
-      tenantId: tenant.id,
-    });
 
+    
     if (filter) {
       if (filter.id) {
         whereAnd.push({
@@ -260,7 +260,7 @@ class CategoriaRepository {
       if (filter.nomeHomenageado) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'socialMedia',
             'nomeHomenageado',
             filter.nomeHomenageado,
           ),
@@ -270,7 +270,7 @@ class CategoriaRepository {
       if (filter.cpf) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'socialMedia',
             'cpf',
             filter.cpf,
           ),
@@ -299,7 +299,7 @@ class CategoriaRepository {
       if (filter.responsavel) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'socialMedia',
             'responsavel',
             filter.responsavel,
           ),
@@ -309,7 +309,7 @@ class CategoriaRepository {
       if (filter.telefoneResponsavel) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'socialMedia',
             'telefoneResponsavel',
             filter.telefoneResponsavel,
           ),
@@ -319,7 +319,7 @@ class CategoriaRepository {
       if (filter.emailResponsavel) {
         whereAnd.push(
           SequelizeFilterUtils.ilikeIncludes(
-            'cerimonia',
+            'socialMedia',
             'emailResponsavel',
             filter.emailResponsavel,
           ),
@@ -334,15 +334,15 @@ class CategoriaRepository {
         });
       }
 
-      if (filter.cerimoniaId) {
+      if (filter.socialMediaId) {
         console.log("nbkldfnbdfkbn")
         console.log("nbkldfnbdfkbn")
         console.log("nbkldfnbdfkbn")
         console.log("nbkldfnbdfkbn")
         console.log("nbkldfnbdfkbn")
         whereAnd.push({
-          ['cerimoniaId']: SequelizeFilterUtils.uuid(
-            filter.cerimoniaId,
+          ['socialMediaId']: SequelizeFilterUtils.uuid(
+            filter.socialMediaId,
           ),
         });
       }
@@ -381,7 +381,7 @@ class CategoriaRepository {
     let {
       rows,
       count,
-    } = await options.database.cerimonia.findAndCountAll({
+    } = await options.database.socialMedia.findAndCountAll({
       where,
       include,
       limit: limit ? Number(limit) : undefined,
@@ -417,7 +417,7 @@ class CategoriaRepository {
           { ['id']: SequelizeFilterUtils.uuid(query) },
           {
             [Op.and]: SequelizeFilterUtils.ilikeIncludes(
-              'cerimonia',
+              'socialMedia',
               'nomeHomenageado',
               query,
             ),
@@ -428,7 +428,7 @@ class CategoriaRepository {
 
     const where = { [Op.and]: whereAnd };
 
-    const records = await options.database.cerimonia.findAll(
+    const records = await options.database.socialMedia.findAll(
       {
         attributes: ['id', 'nomeHomenageado'],
         where,
@@ -460,7 +460,7 @@ class CategoriaRepository {
 
     await AuditLogRepository.log(
       {
-        entityName: 'cerimonia',
+        entityName: 'socialMedia',
         entityId: record.id,
         action,
         values,

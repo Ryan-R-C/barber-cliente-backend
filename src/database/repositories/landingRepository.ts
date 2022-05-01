@@ -31,6 +31,7 @@ class CategoriaRepository {
         ...lodash.pick(data, [
           'titulo',
           'logo',
+          'logoBranca',
           'backgroundWide',
           'backgroundMobile',
           'backgroundPricesMobile',
@@ -93,6 +94,7 @@ class CategoriaRepository {
         ...lodash.pick(data, [
           'titulo',
           'logo',
+          'logoBranca',
           'backgroundWide',
           'backgroundMobile',
           'backgroundPricesMobile',
@@ -257,9 +259,9 @@ class CategoriaRepository {
     let include = [  
     ];
 
-    whereAnd.push({
-      tenantId: tenant.id,
-    });
+    // whereAnd.push({
+    //   tenantId: tenant.id,
+    // });
 
     if (filter) {
       if (filter.id) {
