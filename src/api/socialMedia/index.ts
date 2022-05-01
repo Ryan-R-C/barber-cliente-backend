@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/socialMedia`,
+    require('./socialMediaCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/socialMedia/:id`,
+    require('./socialMediaUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/socialMedia/import`,
+    require('./socialMediaImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/socialMedia`,
+    require('./socialMediaDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/socialMedia/autocomplete`,
+    require('./socialMediaAutocomplete').default,
+  );
+  app.get(
+    `/socialMedia`,
+    require('./socialMediaList').default,
+  );
+  app.get(
+    `/socialMedia/:id`,
+    require('./socialMediaFind').default,
+  );
+};
