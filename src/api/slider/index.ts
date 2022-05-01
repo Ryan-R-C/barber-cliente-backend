@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/slider`,
+    require('./sliderCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/slider/:id`,
+    require('./sliderUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/slider/import`,
+    require('./sliderImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/slider`,
+    require('./sliderDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/slider/autocomplete`,
+    require('./sliderAutocomplete').default,
+  );
+  app.get(
+    `/slider`,
+    require('./sliderList').default,
+  );
+  app.get(
+    `/slider/:id`,
+    require('./sliderFind').default,
+  );
+};

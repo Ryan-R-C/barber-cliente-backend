@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/sobre`,
+    require('./sobreCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/sobre/:id`,
+    require('./sobreUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/sobre/import`,
+    require('./sobreImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/sobre`,
+    require('./sobreDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/sobre/autocomplete`,
+    require('./sobreAutocomplete').default,
+  );
+  app.get(
+    `/sobre`,
+    require('./sobreList').default,
+  );
+  app.get(
+    `/sobre/:id`,
+    require('./sobreFind').default,
+  );
+};
