@@ -80,6 +80,10 @@ require('./tenant').default(routes);
 require('./file').default(routes);
 require('./user').default(routes);
 require('./settings').default(routes);
+require('./sobre').default(routes);
+require('./slider').default(routes);
+require('./landing').default(routes);
+require('./socialMedia').default(routes);
 require('./categoria').default(routes);
 require('./categoriaItem').default(routes);
 
@@ -92,8 +96,8 @@ app.use('/api', routes);
 
 
 // let https = require('https');
-// let https = require('https');
-let https = require('http');
+let https = require('https');
+// let https = require('http');
 const fs = require('fs');
 
 let sslServer;

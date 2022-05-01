@@ -1,12 +1,12 @@
 import PermissionChecker from '../../services/user/permissionChecker';
 import ApiResponseHandler from '../apiResponseHandler';
 import Permissions from '../../security/permissions';
-import LandingService from '../../services/landingService';
+import CategoriaService from '../../services/categoriaService';
 
 export default async (req, res, next) => {
   try {
 
-    const payload = await new LandingService(req).findById(
+    const payload = await new CategoriaService(req).findById(
       req.params.id,
     );
 

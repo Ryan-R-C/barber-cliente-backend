@@ -24,6 +24,7 @@ export default async (req, res) => {
     const config = Storage.values[storageId];
 
     if (!config) {
+      console.log("!config")
       throw new Error403();
     }
 
@@ -33,6 +34,8 @@ export default async (req, res) => {
       !config.bypassWritingPermissions &&
       !permissionChecker.hasStorage(storageId)
     ) {
+      console.log(`!config.bypassWritingPermissions &&
+        !permissionChecker.hasStorage(storageId)`)
       throw new Error403();
     }
 
