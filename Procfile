@@ -1,1 +1,1 @@
-web: npm start
+web: npm install -g ts-node && npm start
