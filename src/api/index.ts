@@ -96,8 +96,8 @@ app.use('/api', routes);
 
 
 // let https = require('https');
-let https = require('https');
-// let https = require('http');
+// let https = require('https');
+let https = require('http');
 const fs = require('fs');
 
 let sslServer;
