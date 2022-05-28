@@ -2,7 +2,7 @@
   "name": "app-backend",
   "description": "Backend",
   "scripts": {
-    "start": "node --watch \"src/**/*.ts\" -e ts,json --exec \"ts-node --transpile-only ./src/server.ts\"",
+    "start": "node \"src/**/*.ts\" -e ts,json --exec \"ts-node --transpile-only ./src/server.ts\"",
     "test": "nodemon --exec \"cross-env NODE_ENV=test mocha -r ts-node/register ./src/**/*.test.ts --exit || exit 1\"",
     "build:documentation": "copyfiles --flat ./src/documentation/openapi.json ./dist/documentation/",
     "build": "tsc && npm run build:documentation",
