@@ -11,10 +11,17 @@ export default (app) => {
     `/tenant/:tenantId/categoria/import`,
     require('./categoriaImport').default,
   );
+
+  app.delete(
+    `/tenant/:tenantId/categoria/:id`,
+    require('./categoriaDestroyOne').default,
+  );
+
   app.delete(
     `/tenant/:tenantId/categoria`,
     require('./categoriaDestroy').default,
   );
+
   app.get(
     `/tenant/:tenantId/categoria/autocomplete`,
     require('./categoriaAutocomplete').default,

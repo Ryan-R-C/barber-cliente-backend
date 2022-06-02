@@ -102,6 +102,28 @@ export default class CategoriaService {
     }
   }
 
+  async destroyOne(id) {
+    const transaction = await SequelizeRepository.createTransaction(
+      this.options.database,
+    );
+
+    try {
+        await CategoriaRepository.destroy(id, {
+          ...this.options,
+          transaction,
+        });
+
+      await SequelizeRepository.commitTransaction(
+        transaction,
+      );
+    } catch (error) {
+      await SequelizeRepository.rollbackTransaction(
+        transaction,
+      );
+      throw error;
+    }
+  }
+
   async findById(id) {
     return CategoriaRepository.findById(id, this.options);
   }
